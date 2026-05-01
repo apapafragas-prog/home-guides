@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oven Guide / Οδηγίες Φούρνου</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --steel: #4a4a4a;
+    --steel-light: #edecea;
+    --ink: #1e1e1e;
+    --accent: #c4813a;
+    --accent-light: #fdf3e7;
+    --success: #4a8c5c;
+    --success-light: #eef6f0;
+    --warning: #c4813a;
+    --warning-light: #fdf3e7;
+    --danger: #b94a4a;
+    --danger-light: #fce8e8;
+    --subtle: #7a756d;
+    --border: #e0dbd4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .header .subtitle {
+    font-size: 14px;
+    color: var(--subtle);
+    font-weight: 500;
+  }
+
+  .brand-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .lang-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+
+  .lang-btn {
+    flex: 1;
+    padding: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .section { margin-bottom: 28px; }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-text {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .step-text strong { font-weight: 600; }
+
+  .mode-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--steel);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .mode-card.recommended {
+    border-left-color: var(--success);
+    background: var(--success-light);
+  }
+
+  .mode-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .mode-content { flex: 1; }
+
+  .mode-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+
+  .mode-desc {
+    font-size: 13px;
+    color: var(--subtle);
+    line-height: 1.5;
+  }
+
+  .mode-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--success);
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .tip-box {
+    background: var(--steel-light);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .tip-box.warning {
+    background: var(--warning-light);
+    border-left: 4px solid var(--warning);
+  }
+
+  .tip-box.danger {
+    background: var(--danger-light);
+    border-left: 4px solid var(--danger);
+  }
+
+  .tip-box.info {
+    background: #e8f0f5;
+    border-left: 4px solid #2a6e8a;
+  }
+
+  .tip-label {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .controls-diagram {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .control-item { text-align: center; }
+
+  .control-item .knob {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin: 0 auto 8px;
+    position: relative;
+    background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+  }
+
+  .control-item .knob::after {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--ink);
+    position: absolute;
+    top: 6px;
+    border-radius: 2px;
+  }
+
+  .control-item .display-box {
+    width: 80px;
+    height: 36px;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0 auto 8px;
+    background: #1a1a1a;
+    color: #ff6600;
+    font-family: monospace;
+  }
+
+  .control-item .label {
+    font-size: 11px;
+    color: var(--subtle);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .temp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .temp-card {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .temp-card .temp {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .temp-card .use {
+    font-size: 12px;
+    color: var(--subtle);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 2px solid var(--ink);
+    margin-top: 36px;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--subtle);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand-badge">Electrolux Built-in Oven</div>
+  <h1 class="i18n" data-en="Oven Guide" data-el="Οδηγίες Φούρνου">Oven Guide</h1>
+  <div class="subtitle i18n" data-en="Quick reference for guests" data-el="Σύντομος οδηγός για επισκέπτες">Quick reference for guests</div>
+</div>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('el')">Ελληνικά</button>
+</div>
+
+<!-- SECTION 1: CONTROLS OVERVIEW -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🎛️</span>
+    <span class="i18n" data-en="Controls Overview" data-el="Επισκόπηση Χειριστηρίων">Controls Overview</span>
+  </div>
+
+  <div class="controls-diagram">
+    <div class="control-item">
+      <div class="knob"></div>
+      <div class="label i18n" data-en="Left knob<br><strong>Function</strong>" data-el="Αριστερό<br><strong>Λειτουργία</strong>">Left knob<br><strong>Function</strong></div>
+    </div>
+    <div class="control-item">
+      <div class="display-box">180°</div>
+      <div class="label i18n" data-en="Display<br><strong>Temp & Time</strong>" data-el="Οθόνη<br><strong>Θερμ. & Χρόνος</strong>">Display<br><strong>Temp & Time</strong></div>
+    </div>
+    <div class="control-item">
+      <div class="knob"></div>
+      <div class="label i18n" data-en="Right knob<br><strong>Temperature</strong>" data-el="Δεξί<br><strong>Θερμοκρασία</strong>">Right knob<br><strong>Temperature</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: HOW TO USE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🍳</span>
+    <span class="i18n" data-en="How to Use the Oven" data-el="Πώς να Χρησιμοποιήσετε τον Φούρνο">How to Use the Oven</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text i18n"
+      data-en="<strong>Turn the left knob</strong> (Function) to select the cooking mode you need (see modes below)."
+      data-el="<strong>Γυρίστε τον αριστερό επιλογέα</strong> (Λειτουργία) για να επιλέξετε τον τρόπο μαγειρέματος (δείτε παρακάτω)."
+    ><strong>Turn the left knob</strong> (Function) to select the cooking mode you need (see modes below).</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text i18n"
+      data-en="<strong>Turn the right knob</strong> (Temperature) to set the desired temperature. The display will show the target temp."
+      data-el="<strong>Γυρίστε τον δεξιό επιλογέα</strong> (Θερμοκρασία) για να ρυθμίσετε τη θερμοκρασία. Η οθόνη δείχνει τη θερμοκρασία-στόχο."
+    ><strong>Turn the right knob</strong> (Temperature) to set the desired temperature. The display will show the target temp.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text i18n"
+      data-en="<strong>Wait for preheat.</strong> The thermostat light turns off when the oven reaches the set temperature — that's when you put your food in."
+      data-el="<strong>Περιμένετε προθέρμανση.</strong> Η λυχνία θερμοστάτη σβήνει όταν ο φούρνος φτάσει τη ρυθμισμένη θερμοκρασία — τότε βάζετε το φαγητό."
+    ><strong>Wait for preheat.</strong> The thermostat light turns off when the oven reaches the set temperature — that's when you put your food in.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text i18n"
+      data-en="<strong>Place your food</strong> on the middle shelf (rack position 2 or 3) unless otherwise needed."
+      data-el="<strong>Τοποθετήστε το φαγητό</strong> στη μεσαία σχάρα (θέση 2 ή 3) εκτός αν χρειάζεται διαφορετικά."
+    ><strong>Place your food</strong> on the middle shelf (rack position 2 or 3) unless otherwise needed.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text i18n"
+      data-en="When done, <strong>turn both knobs back to the off position</strong> (●). The cooling fan may continue to run for a few minutes — this is normal."
+      data-el="Όταν τελειώσετε, <strong>γυρίστε και τους δύο επιλογείς στη θέση σβηστό</strong> (●). Ο ανεμιστήρας ψύξης μπορεί να λειτουργεί μερικά λεπτά — είναι φυσιολογικό."
+    >When done, <strong>turn both knobs back to the off position</strong> (●). The cooling fan may continue to run for a few minutes — this is normal.</div>
+  </div>
+</div>
+
+<!-- SECTION 3: COOKING MODES -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🔥</span>
+    <span class="i18n" data-en="Cooking Modes" data-el="Λειτουργίες Μαγειρέματος">Cooking Modes</span>
+  </div>
+
+  <div class="mode-card recommended">
+    <div class="mode-icon">♨️</div>
+    <div class="mode-content">
+      <div class="mode-tag i18n" data-en="Most versatile" data-el="Πιο ευέλικτο">Most versatile</div>
+      <div class="mode-name i18n" data-en="Fan Cooking (Convection)" data-el="Αερόθερμος (Fan Cooking)">Fan Cooking (Convection)</div>
+      <div class="mode-desc i18n"
+        data-en="Hot air circulated by fan. Even cooking on any shelf. Best for most dishes — pizza, casseroles, pastries, roasts. Use 20°C lower than traditional recipes."
+        data-el="Ζεστός αέρας με ανεμιστήρα. Ομοιόμορφο ψήσιμο σε κάθε σχάρα. Ιδανικό για τα περισσότερα — πίτσα, φαγητά, γλυκά, ψητά. Βάλτε 20°C χαμηλότερα από παραδοσιακές συνταγές."
+      >Hot air circulated by fan. Even cooking on any shelf. Best for most dishes — pizza, casseroles, pastries, roasts. Use 20°C lower than traditional recipes.</div>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">🔲</div>
+    <div class="mode-content">
+      <div class="mode-name i18n" data-en="Conventional (Top + Bottom Heat)" data-el="Πάνω-Κάτω Θέρμανση">Conventional (Top + Bottom Heat)</div>
+      <div class="mode-desc i18n"
+        data-en="Classic baking — heat from top and bottom elements. Ideal for cakes, bread, and single-tray baking."
+        data-el="Κλασικό ψήσιμο — θερμότητα από πάνω και κάτω αντιστάσεις. Ιδανικό για κέικ, ψωμί, ψήσιμο σε ένα ταψί."
+      >Classic baking — heat from top and bottom elements. Ideal for cakes, bread, and single-tray baking.</div>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">🫕</div>
+    <div class="mode-content">
+      <div class="mode-name i18n" data-en="Grill" data-el="Γκριλ (Grill)">Grill</div>
+      <div class="mode-desc i18n"
+        data-en="Top element only — intense heat from above. For toasting, browning, grilling meat or cheese on top. Keep door closed."
+        data-el="Μόνο πάνω αντίσταση — έντονη θερμότητα. Για τοστ, γκρατιναρίσματα, ψήσιμο κρέατος ή τυριού. Κρατήστε την πόρτα κλειστή."
+      >Top element only — intense heat from above. For toasting, browning, grilling meat or cheese on top. Keep door closed.</div>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">🍕</div>
+    <div class="mode-content">
+      <div class="mode-name i18n" data-en="Bottom Heat" data-el="Κάτω Θέρμανση">Bottom Heat</div>
+      <div class="mode-desc i18n"
+        data-en="Heat from bottom only. Great for getting a crispy base — pizza, pies, quiches."
+        data-el="Θερμότητα μόνο από κάτω. Ιδανικό για τραγανή βάση — πίτσα, πίτες, τάρτες."
+      >Heat from bottom only. Great for getting a crispy base — pizza, pies, quiches.</div>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <div class="mode-icon">💡</div>
+    <div class="mode-content">
+      <div class="mode-name i18n" data-en="Light Only" data-el="Μόνο Φωτισμός">Light Only</div>
+      <div class="mode-desc i18n"
+        data-en="Turns on the oven light without heating. Useful to check on food."
+        data-el="Ανάβει τον φωτισμό χωρίς θέρμανση. Χρήσιμο για να ελέγξετε το φαγητό."
+      >Turns on the oven light without heating. Useful to check on food.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: QUICK TEMP GUIDE -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🌡️</span>
+    <span class="i18n" data-en="Quick Temperature Guide" data-el="Γρήγορος Οδηγός Θερμοκρασιών">Quick Temperature Guide</span>
+  </div>
+
+  <div class="temp-grid">
+    <div class="temp-card">
+      <div class="temp">180°C</div>
+      <div class="use i18n" data-en="Cakes, cookies,<br>casseroles" data-el="Κέικ, μπισκότα,<br>φαγητά φούρνου">Cakes, cookies,<br>casseroles</div>
+    </div>
+    <div class="temp-card">
+      <div class="temp">200°C</div>
+      <div class="use i18n" data-en="Roast chicken,<br>vegetables" data-el="Κοτόπουλο,<br>λαχανικά">Roast chicken,<br>vegetables</div>
+    </div>
+    <div class="temp-card">
+      <div class="temp">220°C</div>
+      <div class="use i18n" data-en="Pizza, bread,<br>frozen items" data-el="Πίτσα, ψωμί,<br>κατεψυγμένα">Pizza, bread,<br>frozen items</div>
+    </div>
+    <div class="temp-card">
+      <div class="temp">240°C</div>
+      <div class="use i18n" data-en="High-heat roasts,<br>fast browning" data-el="Ψήσιμο σε υψηλή,<br>γρήγορο ροδοκόκκινο">High-heat roasts,<br>fast browning</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: IMPORTANT TIPS -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">💡</span>
+    <span class="i18n" data-en="Important Tips" data-el="Σημαντικές Συμβουλές">Important Tips</span>
+  </div>
+
+  <div class="tip-box warning">
+    <div class="tip-label">⚠️ <span class="i18n" data-en="Always preheat" data-el="Πάντα προθέρμανση">Always preheat</span></div>
+    <span class="i18n"
+      data-en="Wait for the thermostat indicator light to turn off before placing food inside. This usually takes 10–15 minutes."
+      data-el="Περιμένετε να σβήσει η λυχνία θερμοστάτη πριν βάλετε φαγητό. Αυτό διαρκεί συνήθως 10–15 λεπτά."
+    >Wait for the thermostat indicator light to turn off before placing food inside. This usually takes 10–15 minutes.</span>
+  </div>
+
+  <div class="tip-box danger">
+    <div class="tip-label">🔥 <span class="i18n" data-en="Hot surfaces!" data-el="Καυτές επιφάνειες!">Hot surfaces!</span></div>
+    <span class="i18n"
+      data-en="The oven door, handle, and surrounding surfaces get very hot. Always use oven mitts (provided in the kitchen drawer)."
+      data-el="Η πόρτα, η λαβή και οι γύρω επιφάνειες ζεσταίνονται πολύ. Χρησιμοποιείτε πάντα γάντια φούρνου (στο συρτάρι κουζίνας)."
+    >The oven door, handle, and surrounding surfaces get very hot. Always use oven mitts (provided in the kitchen drawer).</span>
+  </div>
+
+  <div class="tip-box info">
+    <div class="tip-label">🌀 <span class="i18n" data-en="Cooling fan" data-el="Ανεμιστήρας ψύξης">Cooling fan</span></div>
+    <span class="i18n"
+      data-en="You'll hear the cooling fan running during and after use — warm air comes out above the door. This is completely normal and protects the cabinets."
+      data-el="Θα ακούσετε τον ανεμιστήρα ψύξης κατά τη διάρκεια και μετά — ζεστός αέρας βγαίνει πάνω από την πόρτα. Είναι απόλυτα φυσιολογικό."
+    >You'll hear the cooling fan running during and after use — warm air comes out above the door. This is completely normal and protects the cabinets.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">🧹 <span class="i18n" data-en="After use" data-el="Μετά τη χρήση">After use</span></div>
+    <span class="i18n"
+      data-en="Please wipe any spills once the oven has cooled. Don't use aluminium foil on the oven floor — it can damage the enamel."
+      data-el="Παρακαλούμε σκουπίστε τυχόν λεκέδες αφού κρυώσει ο φούρνος. Μη χρησιμοποιείτε αλουμινόχαρτο στο πάτωμα του φούρνου — μπορεί να καταστρέψει το σμάλτο."
+    >Please wipe any spills once the oven has cooled. Don't use aluminium foil on the oven floor — it can damage the enamel.</span>
+  </div>
+
+  <div class="tip-box danger">
+    <div class="tip-label">🚫 <span class="i18n" data-en="Please don't" data-el="Παρακαλούμε αποφύγετε">Please don't</span></div>
+    <span class="i18n"
+      data-en="Don't leave the oven unattended when using the grill function. Don't place plastic, paper, or wooden items inside the oven."
+      data-el="Μην αφήνετε τον φούρνο χωρίς επίβλεψη όταν χρησιμοποιείτε γκριλ. Μην βάζετε πλαστικά, χαρτί ή ξύλινα αντικείμενα μέσα."
+    >Don't leave the oven unattended when using the grill function. Don't place plastic, paper, or wooden items inside the oven.</span>
+  </div>
+</div>
+
+<!-- SECTION 6: RANGE HOOD -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">💨</span>
+    <span class="i18n" data-en="Range Hood (Davoline)" data-el="Απορροφητήρας (Davoline)">Range Hood (Davoline)</span>
+  </div>
+
+  <div class="tip-box">
+    <span class="i18n"
+      data-en="The Davoline range hood above the oven has <strong>2–3 speed settings</strong> and a <strong>light button</strong>. Turn it on while cooking to clear steam and odours. Remember to turn it off when you're done."
+      data-el="Ο απορροφητήρας Davoline πάνω από τον φούρνο έχει <strong>2–3 ταχύτητες</strong> και <strong>κουμπί φωτισμού</strong>. Ανοίξτε τον κατά το μαγείρεμα για να απομακρύνει ατμούς και μυρωδιές. Κλείστε τον όταν τελειώσετε."
+    >The Davoline range hood above the oven has <strong>2–3 speed settings</strong> and a <strong>light button</strong>. Turn it on while cooking to clear steam and odours. Remember to turn it off when you're done.</span>
+  </div>
+</div>
+
+<!-- SECTION 7: TROUBLESHOOTING -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🔧</span>
+    <span class="i18n" data-en="Quick Troubleshooting" data-el="Αντιμετώπιση Προβλημάτων">Quick Troubleshooting</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Oven won't heat up?" data-el="Ο φούρνος δεν ζεσταίνει;">Oven won't heat up?</div>
+    <span class="i18n"
+      data-en="Make sure both knobs are turned — one for function, one for temperature. Check that the clock shows the correct time (a flashing '12:00' after a power cut blocks the oven). Set the time using the +/− buttons."
+      data-el="Βεβαιωθείτε ότι γυρίσατε και τους δύο επιλογείς — λειτουργία και θερμοκρασία. Ελέγξτε ότι η ώρα είναι σωστή (αν αναβοσβήνει '12:00' μετά από διακοπή ρεύματος, ο φούρνος μπλοκάρεται). Ρυθμίστε την ώρα με τα κουμπιά +/−."
+    >Make sure both knobs are turned — one for function, one for temperature. Check that the clock shows the correct time (a flashing '12:00' after a power cut blocks the oven). Set the time using the +/− buttons.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Display flashing 12:00?" data-el="Η οθόνη αναβοσβήνει 12:00;">Display flashing 12:00?</div>
+    <span class="i18n"
+      data-en="There was a power cut. Use the clock buttons on the panel to set the current time. The oven won't operate until the clock is set."
+      data-el="Υπήρξε διακοπή ρεύματος. Χρησιμοποιήστε τα κουμπιά ρολογιού στον πίνακα για να ρυθμίσετε την ώρα. Ο φούρνος δεν λειτουργεί αν δεν ρυθμιστεί."
+    >There was a power cut. Use the clock buttons on the panel to set the current time. The oven won't operate until the clock is set.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Fan keeps running after turning off?" data-el="Ο ανεμιστήρας τρέχει μετά το σβήσιμο;">Fan keeps running after turning off?</div>
+    <span class="i18n"
+      data-en="This is normal. The cooling fan runs until the oven cools down sufficiently. It will stop on its own."
+      data-el="Αυτό είναι φυσιολογικό. Ο ανεμιστήρας ψύξης λειτουργεί μέχρι να κρυώσει ο φούρνος. Σταματά μόνος του."
+    >This is normal. The cooling fan runs until the oven cools down sufficiently. It will stop on its own.</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p class="i18n"
+    data-en="If you need any help, don't hesitate to message your host. Enjoy your stay! ☀️"
+    data-el="Αν χρειάζεστε βοήθεια, μη διστάσετε να επικοινωνήσετε. Καλή διαμονή! ☀️"
+  >If you need any help, don't hesitate to message your host. Enjoy your stay! ☀️</p>
+</div>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if ((lang === 'en' && btn.textContent === 'English') ||
+        (lang === 'el' && btn.textContent === 'Ελληνικά')) {
+      btn.classList.add('active');
+    }
+  });
+  document.querySelectorAll('.i18n').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+</script>
+
+</body>
+</html>

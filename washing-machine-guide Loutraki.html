@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Washing Machine Guide / Οδηγίες Πλυντηρίου</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5f0e8;
+    --warm: #e8dfd3;
+    --ink: #2c2a26;
+    --accent: #3a7ca5;
+    --accent-light: #e8f1f7;
+    --success: #4a8c5c;
+    --warning: #c4813a;
+    --danger: #b94a4a;
+    --subtle: #8a8478;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .header .subtitle {
+    font-size: 14px;
+    color: var(--subtle);
+    font-weight: 500;
+  }
+
+  .brand-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--sand);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+
+  .lang-btn {
+    flex: 1;
+    padding: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--sand);
+  }
+
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--warm);
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--ink);
+    color: var(--sand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-text {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .step-text strong {
+    font-weight: 600;
+  }
+
+  .cycle-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .cycle-card.recommended {
+    border-left-color: var(--success);
+    background: #f4f9f5;
+  }
+
+  .cycle-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+
+  .cycle-desc {
+    font-size: 13px;
+    color: var(--subtle);
+    line-height: 1.5;
+  }
+
+  .cycle-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--success);
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .tip-box {
+    background: var(--accent-light);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .tip-box.warning {
+    background: #fdf3e7;
+    border-left: 4px solid var(--warning);
+  }
+
+  .tip-box.danger {
+    background: #fce8e8;
+    border-left: 4px solid var(--danger);
+  }
+
+  .tip-label {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .detergent-diagram {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .drawer-slot {
+    text-align: center;
+  }
+
+  .drawer-slot .box {
+    width: 56px;
+    height: 40px;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 auto 6px;
+    position: relative;
+  }
+
+  .drawer-slot .box.highlight {
+    background: var(--accent-light);
+    border-color: var(--accent);
+  }
+
+  .drawer-slot .label {
+    font-size: 11px;
+    color: var(--subtle);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 2px solid var(--ink);
+    margin-top: 36px;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--subtle);
+    line-height: 1.6;
+  }
+
+  .footer .host {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand-badge">Samsung EcoBubble</div>
+  <h1 class="i18n" data-en="Washing Machine Guide" data-el="Οδηγίες Πλυντηρίου">Washing Machine Guide</h1>
+  <div class="subtitle i18n" data-en="Quick reference for guests" data-el="Σύντομος οδηγός για επισκέπτες">Quick reference for guests</div>
+</div>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('el')">Ελληνικά</button>
+</div>
+
+<!-- SECTION 1: HOW TO WASH -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">👕</span>
+    <span class="i18n" data-en="How to Wash" data-el="Πώς να Πλύνετε">How to Wash</span>
+  </div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text i18n"
+      data-en="<strong>Open the door</strong> and load your laundry. Don't overfill — leave some room for clothes to move."
+      data-el="<strong>Ανοίξτε την πόρτα</strong> και τοποθετήστε τα ρούχα σας. Μην υπερφορτώνετε — αφήστε χώρο για τα ρούχα να κινούνται."
+    ><strong>Open the door</strong> and load your laundry. Don't overfill — leave some room for clothes to move.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text i18n"
+      data-en="<strong>Add detergent</strong> to the left compartment of the drawer (marked <strong>II</strong>). Use the liquid detergent provided — one cap is enough."
+      data-el="<strong>Προσθέστε απορρυπαντικό</strong> στο αριστερό διαμέρισμα του συρταριού (σημειωμένο <strong>II</strong>). Χρησιμοποιήστε το υγρό απορρυπαντικό που παρέχεται — ένα καπάκι αρκεί."
+    ><strong>Add detergent</strong> to the left compartment of the drawer (marked <strong>II</strong>). Use the liquid detergent provided — one cap is enough.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text i18n"
+      data-en="<strong>Close the door firmly</strong> until you hear it click."
+      data-el="<strong>Κλείστε καλά την πόρτα</strong> μέχρι να ακούσετε κλικ."
+    ><strong>Close the door firmly</strong> until you hear it click.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text i18n"
+      data-en="Press the <strong>Power button</strong> (top-left). The display will light up."
+      data-el="Πατήστε το <strong>κουμπί Power</strong> (πάνω αριστερά). Η οθόνη θα ανάψει."
+    >Press the <strong>Power button</strong> (top-left). The display will light up.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text i18n"
+      data-en="<strong>Turn the dial</strong> to select your cycle (see recommendations below)."
+      data-el="<strong>Γυρίστε τον επιλογέα</strong> για να διαλέξετε πρόγραμμα (δείτε συστάσεις παρακάτω)."
+    ><strong>Turn the dial</strong> to select your cycle (see recommendations below).</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-text i18n"
+      data-en="Press <strong>Start/Pause</strong>. The door will lock and the wash begins."
+      data-el="Πατήστε <strong>Start/Pause</strong>. Η πόρτα θα κλειδώσει και το πλύσιμο ξεκινά."
+    >Press <strong>Start/Pause</strong>. The door will lock and the wash begins.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-text i18n"
+      data-en="When finished, the machine beeps. <strong>Wait 1–2 minutes</strong> for the door to unlock, then remove your clothes."
+      data-el="Όταν τελειώσει, ακούγεται ήχος. <strong>Περιμένετε 1–2 λεπτά</strong> για να ξεκλειδώσει η πόρτα, μετά βγάλτε τα ρούχα."
+    >When finished, the machine beeps. <strong>Wait 1–2 minutes</strong> for the door to unlock, then remove your clothes.</div>
+  </div>
+</div>
+
+<!-- SECTION 2: DETERGENT DRAWER -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🧴</span>
+    <span class="i18n" data-en="Detergent Drawer" data-el="Συρτάρι Απορρυπαντικού">Detergent Drawer</span>
+  </div>
+
+  <div class="detergent-diagram">
+    <div class="drawer-slot">
+      <div class="box highlight">II</div>
+      <div class="label i18n" data-en="Main wash<br>detergent" data-el="Κύριο<br>απορρυπαντικό">Main wash<br>detergent</div>
+    </div>
+    <div class="drawer-slot">
+      <div class="box">I</div>
+      <div class="label i18n" data-en="Pre-wash<br>(skip)" data-el="Προπλύσιμο<br>(αγνοήστε)">Pre-wash<br>(skip)</div>
+    </div>
+    <div class="drawer-slot">
+      <div class="box">✿</div>
+      <div class="label i18n" data-en="Softener<br>(optional)" data-el="Μαλακτικό<br>(προαιρετικά)">Softener<br>(optional)</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: RECOMMENDED CYCLES -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🔄</span>
+    <span class="i18n" data-en="Recommended Cycles" data-el="Προτεινόμενα Προγράμματα">Recommended Cycles</span>
+  </div>
+
+  <div class="cycle-card recommended">
+    <div class="cycle-tag i18n" data-en="Best for most loads" data-el="Ιδανικό για τα περισσότερα">Best for most loads</div>
+    <div class="cycle-name i18n" data-en="Normal / Cotton 40°C" data-el="Normal / Βαμβακερά 40°C">Normal / Cotton 40°C</div>
+    <div class="cycle-desc i18n"
+      data-en="T-shirts, underwear, towels, everyday clothes. ~1h 30min."
+      data-el="Μπλουζάκια, εσώρουχα, πετσέτες, καθημερινά ρούχα. ~1ω 30λ."
+    >T-shirts, underwear, towels, everyday clothes. ~1h 30min.</div>
+  </div>
+
+  <div class="cycle-card">
+    <div class="cycle-name i18n" data-en="Quick Wash 15'/30'" data-el="Γρήγορο Πλύσιμο 15'/30'">Quick Wash 15'/30'</div>
+    <div class="cycle-desc i18n"
+      data-en="Small load, lightly worn. Perfect for a few items before checking out."
+      data-el="Μικρό φορτίο, ελαφρά φορεμένα. Ιδανικό για λίγα κομμάτια πριν το check-out."
+    >Small load, lightly worn. Perfect for a few items before checking out.</div>
+  </div>
+
+  <div class="cycle-card">
+    <div class="cycle-name i18n" data-en="Delicates / Wool 30°C" data-el="Ευαίσθητα / Μάλλινα 30°C">Delicates / Wool 30°C</div>
+    <div class="cycle-desc i18n"
+      data-en="Swimwear, silk, delicate fabrics. Gentle spin."
+      data-el="Μαγιό, μετάξι, ευαίσθητα υφάσματα. Απαλό στύψιμο."
+    >Swimwear, silk, delicate fabrics. Gentle spin.</div>
+  </div>
+
+  <div class="cycle-card">
+    <div class="cycle-name i18n" data-en="Towels / Bedding 60°C" data-el="Πετσέτες / Κλινοσκεπάσματα 60°C">Towels / Bedding 60°C</div>
+    <div class="cycle-desc i18n"
+      data-en="Heavy towels or sheets. Longer cycle (~2h)."
+      data-el="Βαριές πετσέτες ή σεντόνια. Μεγαλύτερο πρόγραμμα (~2ω)."
+    >Heavy towels or sheets. Longer cycle (~2h).</div>
+  </div>
+</div>
+
+<!-- SECTION 4: IMPORTANT TIPS -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">💡</span>
+    <span class="i18n" data-en="Important Tips" data-el="Σημαντικές Συμβουλές">Important Tips</span>
+  </div>
+
+  <div class="tip-box warning">
+    <div class="tip-label">⚠️ <span class="i18n" data-en="Don't force the door" data-el="Μην πιέζετε την πόρτα">Don't force the door</span></div>
+    <span class="i18n"
+      data-en="The door locks during the cycle. Wait 1–2 minutes after the cycle ends for it to unlock automatically."
+      data-el="Η πόρτα κλειδώνει κατά τη διάρκεια του προγράμματος. Περιμένετε 1–2 λεπτά μετά το τέλος για να ξεκλειδώσει αυτόματα."
+    >The door locks during the cycle. Wait 1–2 minutes after the cycle ends for it to unlock automatically.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">💧 <span class="i18n" data-en="Detergent amount" data-el="Ποσότητα απορρυπαντικού">Detergent amount</span></div>
+    <span class="i18n"
+      data-en="Less is more! One cap of liquid detergent is enough. Too much creates excess foam and longer rinse times."
+      data-el="Λιγότερο είναι περισσότερο! Ένα καπάκι υγρού απορρυπαντικού αρκεί. Πολύ απορρυπαντικό δημιουργεί υπερβολικό αφρό."
+    >Less is more! One cap of liquid detergent is enough. Too much creates excess foam and longer rinse times.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">🧺 <span class="i18n" data-en="After washing" data-el="Μετά το πλύσιμο">After washing</span></div>
+    <span class="i18n"
+      data-en="Please remove clothes promptly and leave the door slightly open to prevent mildew."
+      data-el="Παρακαλούμε αφαιρέστε τα ρούχα αμέσως και αφήστε την πόρτα ελαφρώς ανοιχτή για αερισμό."
+    >Please remove clothes promptly and leave the door slightly open to prevent mildew.</span>
+  </div>
+
+  <div class="tip-box danger">
+    <div class="tip-label">🚫 <span class="i18n" data-en="Please don't" data-el="Παρακαλούμε αποφύγετε">Please don't</span></div>
+    <span class="i18n"
+      data-en="Don't wash shoes, heavy blankets, or sandy beach items. Shake sand off clothes before loading."
+      data-el="Μην πλένετε παπούτσια, βαριές κουβέρτες ή αντικείμενα γεμάτα άμμο. Τινάξτε την άμμο πριν τα βάλετε."
+    >Don't wash shoes, heavy blankets, or sandy beach items. Shake sand off clothes before loading.</span>
+  </div>
+</div>
+
+<!-- SECTION 5: TROUBLESHOOTING -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🔧</span>
+    <span class="i18n" data-en="Quick Troubleshooting" data-el="Αντιμετώπιση Προβλημάτων">Quick Troubleshooting</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Machine won't start?" data-el="Το πλυντήριο δεν ξεκινά;">Machine won't start?</div>
+    <span class="i18n"
+      data-en="Make sure the door is firmly closed (push it until it clicks). Check that Power is on."
+      data-el="Βεβαιωθείτε ότι η πόρτα είναι καλά κλεισμένη (σπρώξτε μέχρι να κάνει κλικ). Ελέγξτε ότι είναι αναμμένο."
+    >Make sure the door is firmly closed (push it until it clicks). Check that Power is on.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Door won't open?" data-el="Η πόρτα δεν ανοίγει;">Door won't open?</div>
+    <span class="i18n"
+      data-en="Wait 2–3 minutes after the cycle ends. If still locked, press Start/Pause once, wait, then try again."
+      data-el="Περιμένετε 2–3 λεπτά μετά το τέλος. Αν παραμένει κλειδωμένη, πατήστε Start/Pause μία φορά, περιμένετε και δοκιμάστε ξανά."
+    >Wait 2–3 minutes after the cycle ends. If still locked, press Start/Pause once, wait, then try again.</span>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label i18n" data-en="Machine vibrates a lot?" data-el="Δονείται πολύ;">Machine vibrates a lot?</div>
+    <span class="i18n"
+      data-en="The load may be unbalanced. Pause, open, redistribute the clothes evenly, and restart."
+      data-el="Το φορτίο μπορεί να είναι ανομοιόμορφο. Κάντε παύση, ανοίξτε, μοιράστε τα ρούχα ομοιόμορφα και ξεκινήστε ξανά."
+    >The load may be unbalanced. Pause, open, redistribute the clothes evenly, and restart.</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p class="i18n"
+    data-en="If you need any help, don't hesitate to message your host. Enjoy your stay! ☀️"
+    data-el="Αν χρειάζεστε βοήθεια, μη διστάσετε να επικοινωνήσετε. Καλή διαμονή! ☀️"
+  >If you need any help, don't hesitate to message your host. Enjoy your stay! ☀️</p>
+</div>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if ((lang === 'en' && btn.textContent === 'English') ||
+        (lang === 'el' && btn.textContent === 'Ελληνικά')) {
+      btn.classList.add('active');
+    }
+  });
+
+  document.querySelectorAll('.i18n').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+</script>
+
+</body>
+</html>
